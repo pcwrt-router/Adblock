@@ -1,0 +1,2 @@
+# Adblock
+Ad block domains
