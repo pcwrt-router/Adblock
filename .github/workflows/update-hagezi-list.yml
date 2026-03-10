@@ -1,7 +1,7 @@
 name: Update Hagezi Lists
 on:
   schedule:
-    - cron: '0 0 * * *' # runs every day
+    - cron: '0 3 * * *' # runs every day
   workflow_dispatch: # allows manual triggering from the GitHub UI
 
 jobs:
