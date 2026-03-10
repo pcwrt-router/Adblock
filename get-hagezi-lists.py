@@ -12,7 +12,7 @@ def process_file(myfile):
                 print(m.group(1), file=o)
     o.close()
 
-    subprocess.run(["gzip", "-n", "dist/%s_domains.txt" % myfile])
+    subprocess.run(["gzip", "dist/%s_domains.txt" % myfile])
     subprocess.run("md5sum dist/%s_domains.txt.gz | cut -d ' ' -f 1 > dist/%s_domains.txt.md5" % (myfile, myfile), shell=True)
 
 if __name__ == "__main__":
