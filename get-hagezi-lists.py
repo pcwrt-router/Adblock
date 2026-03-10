@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-import os
 import re
+import gzip
+import shutil
 import subprocess
 
 def process_file(myfile):
@@ -12,7 +13,10 @@ def process_file(myfile):
                 print(m.group(1), file=o)
     o.close()
 
-    subprocess.run(["gzip", "dist/%s_domains.txt" % myfile])
+    with open('dist/%s_domains.txt' % myfile, 'rb') as f_in:
+        with gzip.open('dist/%s_domains.txt.gz' % myfile, 'wb') as f_out:
+            shutil.copyfileobj(f_in, f_out)
+
     subprocess.run("md5sum dist/%s_domains.txt.gz | cut -d ' ' -f 1 > dist/%s_domains.txt.md5" % (myfile, myfile), shell=True)
 
 if __name__ == "__main__":
