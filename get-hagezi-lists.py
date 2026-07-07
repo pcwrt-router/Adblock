@@ -5,12 +5,16 @@ import shutil
 import subprocess
 
 def process_file(myfile):
-    o = open("dist/%s_domains.txt" % myfile, 'w')
+    domains = {}
     with open("dist/%s.txt" % myfile, "r") as f:
         for line in iter(f):
             m = re.match(r'^\|\|(\S*)\^\s*$', line)
             if m and m.group(1) != None:
-                print(m.group(1), file=o)
+                domains[m.group(1)] = 'a'
+
+    o = open("dist/%s_domains.txt" % myfile, 'w')
+    for d in sorted(domains):
+        print(d, file=o)
     o.close()
 
     with open('dist/%s_domains.txt' % myfile, 'rb') as f_in:
