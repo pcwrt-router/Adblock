@@ -6,12 +6,16 @@ import subprocess
 
 subprocess.run(["curl", "-o", "dist/easylist.txt", "https://easylist.to/easylist/easylist.txt"])
 
-o = open("dist/easylist_domains.txt", "w")
+domains = {}
 with open("dist/easylist.txt", "r") as f:
     for line in f:
         m = re.match(r'^\|\|(\S*)\^\s*$', line)
         if m and m.group(1) != None:
-            print(m.group(1), file=o)
+            domains[m.group(1)] = 'a'
+
+o = open("dist/easylist_domains.txt", "w")
+for d in sorted(domains):
+    print(d, file=o)
 o.close()
 
 with open('dist/easylist_domains.txt', 'rb') as f_in:
